@@ -1070,10 +1070,12 @@ h1, h2, h3, h4, h5, h6 {
     transform: scale(1.1);
 }
 
+.collection-img-box:hover .gallery-overlay,
 .gallery-item:hover .gallery-overlay {
     opacity: 1;
 }
 
+.collection-img-box:hover .zoom-icon,
 .gallery-item:hover .zoom-icon {
     transform: scale(1);
 }

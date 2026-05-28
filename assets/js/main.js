@@ -6,6 +6,120 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     /* --------------------------------------------------------------------------
+       0. Dynamic Grid Generation (All Images in Directory)
+       -------------------------------------------------------------------------- */
+    const jerseyImages = [
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855440801_a0ac2c7526b3020cb902f7aa19bb530a.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855440892_561fe664159c5491d32d57d2d3e9de79.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855442133_f70401cb649c962238a3311f93531f20.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855446667_ffbcce3c8fa4d4870dfa5872e6d67fcd.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855449992_6190d688f77f30cd8690435355df5a66.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855450114_5685e100cde58d155599923dae69abea.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855453549_a85bd144beb12bb25d070bdaa2ebf19b.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855454927_93346e5ac318cff8469fe03e6ec03792.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855455720_072c191cd97bc384984ca262e94cb7db.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855457450_59c59ca3d62f1d1af604588132425155.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855457644_8ec4e65fd24fb5018484951d48f555e0.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855460714_16d9d6e94432d6f3ef00511a43f5d4d5.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855467026_2004c940d463aabd51e5efd9d3d37e1f.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855467127_483489b01d14f37b629db5ccd4a4697d.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855467301_c5bd6db6a5d836aed908e9099fc04df0.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855468207_2ddd78931d0dea580c79dc6ae76ca52a.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855471169_0a5d79f830a782f027dd979954fc0138.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855472009_2c5a8748a73346a05394d8f081df25a3.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855472648_b11155fe4c34ee9c56f5d917c0dd0c54.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855474113_4c61b0da460fc0f3db6281a9c6047285.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-h-z7876855479003_174e628220c28a230e30f9d397308dd7.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-n-z7876855452632_d946b30aceaf4cd647166d4e5c59e470.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-o-z7876855440993_2807d1748d0b9bbc8dc5608ac415b029.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-o-z7876855441800_94f48b368735bb72155d90e377870a39.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-o-z7876855447077_91a9273376a2538384e16c7ad9003240.jpg",
+        "assets/images/bo-suu-tap/ao-dau/gen-o-z7876855447898_fa4eee143ba07278d13c50a2e0c46907.jpg"
+    ];
+
+    const signatureImages = [
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876855466098_cb53fe87c792a10f76b8f2ec12d2653b.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876859101090_d8554aca88205b2c779acf1ddda714b6.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876859103554_496353da179b01599ebd7ffb27324ebb.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876859107045_0ed61e4fe31df2c60c5edc83a18c0050.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876859109147_7a5bf6f63cc792989bea982b8313f7d5.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876859113852_5fc95254c8f8cd6b55354e9957904f76.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-h-z7876859114559_250105cc43ba0dcb72b7f3d6dd9583bb.jpg",
+        "assets/images/bo-suu-tap/chu-ky/gen-n-z7876859104214_2bd527212629da10143dd5b92bb6042e.jpg"
+    ];
+
+    const collectionGrid = document.getElementById('collectionGrid');
+    const galleryGrid = document.getElementById('galleryGrid');
+
+    if (collectionGrid) {
+        let collectionHTML = '';
+        let index = 0;
+        jerseyImages.forEach((src) => {
+            const delayClass = index % 3 === 1 ? 'delay-1' : (index % 3 === 2 ? 'delay-2' : '');
+            collectionHTML += `
+                <div class="collection-item reveal ${delayClass}" data-category="jersey">
+                    <div class="collection-img-box">
+                        <img src="${src}" alt="" class="collection-img" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="zoom-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            index++;
+        });
+        signatureImages.forEach((src) => {
+            const delayClass = index % 3 === 1 ? 'delay-1' : (index % 3 === 2 ? 'delay-2' : '');
+            collectionHTML += `
+                <div class="collection-item reveal ${delayClass}" data-category="signature">
+                    <div class="collection-img-box">
+                        <img src="${src}" alt="" class="collection-img" loading="lazy">
+                        <div class="gallery-overlay">
+                            <span class="zoom-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            index++;
+        });
+        collectionGrid.innerHTML = collectionHTML;
+    }
+
+    if (galleryGrid) {
+        let galleryHTML = '';
+        let index = 0;
+        const allImages = [...jerseyImages, ...signatureImages];
+        allImages.forEach((src) => {
+            const delayClass = index % 4 === 1 ? 'delay-1' : (index % 4 === 2 ? 'delay-2' : (index % 4 === 3 ? 'delay-3' : ''));
+            galleryHTML += `
+                <div class="gallery-item reveal ${delayClass}">
+                    <img src="${src}" alt="" class="gallery-img" loading="lazy">
+                    <div class="gallery-overlay">
+                        <span class="zoom-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+            `;
+            index++;
+        });
+        galleryGrid.innerHTML = galleryHTML;
+    }
+
+    /* --------------------------------------------------------------------------
        1. Global Elements
        -------------------------------------------------------------------------- */
     const navbar = document.querySelector('.navbar-header');
@@ -44,7 +158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle.addEventListener('click', () => {
         mobileToggle.classList.toggle('active');
         navMenu.classList.toggle('active');
-        // Prevent body scrolling when mobile menu is open
         document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
 
@@ -67,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('revealed');
-                    // Stop observing once animated in
                     observer.unobserve(entry.target);
                 }
             });
@@ -78,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         revealElements.forEach(el => revealObserver.observe(el));
     } else {
-        // Fallback for older browsers
         revealElements.forEach(el => el.classList.add('revealed'));
     }
 
@@ -102,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, {
             threshold: 0.4,
-            rootMargin: '-80px 0px -40% 0px' // accounts for header and viewport offset
+            rootMargin: '-80px 0px -40% 0px'
         });
         
         sections.forEach(sec => activeNavObserver.observe(sec));
@@ -116,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Update active filter button class
             filterButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
@@ -127,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (filterValue === 'all' || itemCategory === filterValue) {
                     item.classList.remove('hidden');
-                    // Re-trigger scroll reveal styling to ensure they stay visual
                     setTimeout(() => {
                         item.classList.add('revealed');
                     }, 50);
@@ -139,131 +248,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* --------------------------------------------------------------------------
-       7. Collection Detail Modal Functionality
+       7. Image Lightbox for Collection & Gallery
        -------------------------------------------------------------------------- */
-    // Detailed dataset mapping for 6 collection items
-    const collectionData = [
-        {
-            title: "Áo Đấu Ký Ronaldinho (Barcelona)",
-            category: "Chữ Ký Thần Tượng",
-            image: "assets/images/gen-h-z7876824789620_ec57b9998b6f78eadfc4402f4ab3ce2b.jpg",
-            description: "Chiếc áo đấu Barcelona mang chữ ký tay nguyên bản cực kỳ sắc nét của 'Ảo thuật gia sân cỏ' Ronaldinho Gaúcho. Kỷ vật này được Rayan trực tiếp săn đón thành công trong chuyến ghé thăm đặc biệt của R10 đến Hà Nội vào năm 2024. Được chiêm ngưỡng nụ cười bất diệt của anh bên ngoài và chạm tay vào chữ ký thiêng liêng này là khoảnh khắc đáng nhớ nhất tuổi trẻ.",
-            special: "Đây là chiếc áo đấu có chữ ký đầu tiên và được trân trọng đặt ở vị trí trang trọng nhất trong tủ trưng bày của Dương."
-        },
-        {
-            title: "Áo Đấu Ký Rivaldo (World Cup 2002)",
-            category: "Chữ Ký Huyền Thoại",
-            image: "assets/images/gen-h-z7876824783483_cb2ad9fa675709371d74308fd5988aa1.jpg",
-            description: "Mẫu áo đấu ký bởi danh thủ Rivaldo - chủ nhân Quả bóng Vàng 1999 và linh hồn của chức vô địch World Cup 2002 của ĐT Brazil. Được Rayan trực tiếp sưu tập khi huyền thoại người Brazil cùng các cựu danh thủ đến thi đấu giao hữu tại SVĐ Quốc Gia Mỹ Đình vào năm 2023. Từng nét mực in đậm dấu ấn kiêu hùng của một thế hệ vàng.",
-            special: "Chữ ký tay chân thực do Rivaldo ký bằng tay trái cực kỳ điệu nghệ ngay trước sảnh SVĐ."
-        },
-        {
-            title: "Áo Đấu Argentina World Cup 2022",
-            category: "Áo Đấu Cổ Điển",
-            image: "assets/images/gen-h-z7876824773399_16a24b4b016aec8b34fb505b1036b36d.jpg",
-            description: "Áo đấu sọc xanh trắng nguyên bản của ĐTQG Argentina trong đêm đăng quang lịch sử tại SVĐ Lusail, Qatar (World Cup 2022). Chiếc áo mang tên và số đấu huyền thoại của Lionel Messi - người đã hoàn tất bộ sưu tập danh hiệu vĩ đại nhất lịch sử bóng đá thế giới.",
-            special: "Thiết kế in sẵn logo ba ngôi sao vô địch vàng rực rỡ và huy hiệu FIFA World Champions chính hãng."
-        },
-        {
-            title: "Áo Đấu Man United Champions League 2008",
-            category: "Áo Đấu Retro",
-            image: "assets/images/gen-h-z7876824774925_daa175f908c45dd2bb7835081f065f9f.jpg",
-            description: "Chiếc áo đỏ retro tái hiện lại đêm mưa Moscow huyền ảo năm 2008 khi Quỷ Đỏ Manchester United đánh bại Chelsea trên loạt sút luân lưu cân não để lên ngôi vương UEFA Champions League. Mẫu áo in tên Cristiano Ronaldo gắn liền với cú bật nhảy ghi bàn không tưởng trong trận chung kết.",
-            special: "Mẫu áo kinh điển của thế hệ bóng đá vàng thời thơ ấu, lưu trữ những kỷ niệm không thể nào quên."
-        },
-        {
-            title: "Poster Nghệ Thuật Lionel Messi",
-            category: "Ấn Phẩm Sưu Tầm",
-            image: "assets/images/gen-h-z7876824778647_fa96df3c7336dca46f64a0405f3589de.jpg",
-            description: "Poster vải canvas chất lượng cao, khắc họa những khoảnh khắc ăn mừng thăng hoa tột cùng của huyền thoại Lionel Messi trong màu áo Blaugrana Barcelona. Thiết kế mang phong cách poster thể thao nghệ thuật hiện đại với những mảng màu tương phản rực rỡ.",
-            special: "Điểm nhấn đầy cá tính truyền cảm hứng mạnh mẽ về khát vọng vươn lên mỗi ngày tại không gian trưng bày cá nhân."
-        },
-        {
-            title: "Tập Bộ Vé Trận Đấu Kỷ Niệm",
-            category: "Vé Trận Đấu Lịch Sử",
-            image: "assets/images/gen-h-z7876824781106_aea5f91a478c4af21d27733b1a83e713.jpg",
-            description: "Bộ sưu tập gồm nhiều cuống vé giấy lịch sử của các trận đấu giao hữu, vòng loại World Cup tại SVĐ Mỹ Đình và các sự kiện bóng đá giao lưu có huyền thoại ghé thăm Hà Nội từ năm 2023 đến 2026. Mỗi cuống vé là một tấm hộ chiếu thời gian đưa Rayan trở lại với bầu không khí cuồng nhiệt trên khán đài.",
-            special: "Kỷ vật chân thực lưu trữ những bước chạy rực lửa trực tiếp trước mắt của các danh thủ huyền thoại."
-        }
-    ];
-
-    const collectionModal = document.getElementById('collectionModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalCat = document.getElementById('modalCat');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalSpecial = document.getElementById('modalSpecial');
-    const modalClose = document.getElementById('modalClose');
-    const modalBackdrop = collectionModal.querySelector('.modal-backdrop');
-    const detailButtons = document.querySelectorAll('.btn-detail');
-
-    const openCollectionModal = (index) => {
-        const item = collectionData[index];
-        if (!item) return;
-
-        modalImg.src = item.image;
-        modalImg.alt = item.title;
-        modalCat.textContent = item.category;
-        modalTitle.textContent = item.title;
-        modalDesc.textContent = item.description;
-        modalSpecial.innerHTML = `<strong>Đặc biệt:</strong> ${item.special}`;
-
-        collectionModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    };
-
-    const closeCollectionModal = () => {
-        collectionModal.classList.remove('active');
-        document.body.style.overflow = '';
-    };
-
-    detailButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const index = parseInt(e.target.getAttribute('data-item'));
-            openCollectionModal(index);
-        });
-    });
-
-    modalClose.addEventListener('click', closeCollectionModal);
-    modalBackdrop.addEventListener('click', closeCollectionModal);
-
-    /* --------------------------------------------------------------------------
-       8. Gallery Lightbox Modal Functionality
-       -------------------------------------------------------------------------- */
-    const galleryItems = document.querySelectorAll('.gallery-item');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCaption = document.getElementById('lightboxCaption');
     const lightboxClose = document.getElementById('lightboxClose');
     const lightboxPrev = document.getElementById('lightboxPrev');
     const lightboxNext = document.getElementById('lightboxNext');
 
-    let currentGalleryIndex = 0;
-    const galleryImages = [];
+    let currentImages = []; // List of images currently active for next/prev sliding
+    let currentImgIndex = 0;
 
-    // Initialize list of images in gallery for fast sliding navigation
-    galleryItems.forEach((item, index) => {
-        const img = item.querySelector('.gallery-img');
-        const caption = item.querySelector('.gallery-caption').textContent;
-        galleryImages.push({
-            src: img.src,
-            alt: img.alt,
-            caption: caption
-        });
-
-        item.addEventListener('click', () => {
-            currentGalleryIndex = index;
-            openLightbox(index);
-        });
-    });
-
-    const openLightbox = (index) => {
-        const data = galleryImages[index];
+    const openLightbox = (imagesList, index) => {
+        currentImages = imagesList;
+        currentImgIndex = index;
+        
+        const data = currentImages[currentImgIndex];
         if (!data) return;
 
         lightboxImg.src = data.src;
         lightboxImg.alt = data.alt;
-        lightboxCaption.textContent = data.caption;
         
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -275,18 +279,58 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const nextImage = () => {
-        currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
-        openLightbox(currentGalleryIndex);
+        if (currentImages.length === 0) return;
+        currentImgIndex = (currentImgIndex + 1) % currentImages.length;
+        openLightbox(currentImages, currentImgIndex);
     };
 
     const prevImage = () => {
-        currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
-        openLightbox(currentGalleryIndex);
+        if (currentImages.length === 0) return;
+        currentImgIndex = (currentImgIndex - 1 + currentImages.length) % currentImages.length;
+        openLightbox(currentImages, currentImgIndex);
     };
+
+    // Bind Collection Grid items
+    const setupCollectionLightbox = () => {
+        const collectionGrid = document.querySelector('.collection-grid');
+        if (!collectionGrid) return;
+        
+        collectionGrid.addEventListener('click', (e) => {
+            const item = e.target.closest('.collection-item');
+            if (!item) return;
+
+            // Get all currently visible collection items (filtered)
+            const visibleItems = Array.from(document.querySelectorAll('.collection-item:not(.hidden)'));
+            const imagesList = visibleItems.map(vi => {
+                const img = vi.querySelector('.collection-img');
+                return { src: img.src, alt: img.alt || '' };
+            });
+
+            const index = visibleItems.indexOf(item);
+            openLightbox(imagesList, index);
+        });
+    };
+
+    // Bind Gallery Grid items
+    const setupGalleryLightbox = () => {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                const imagesList = Array.from(galleryItems).map(gi => {
+                    const img = gi.querySelector('.gallery-img');
+                    return { src: img.src, alt: img.alt };
+                });
+                openLightbox(imagesList, index);
+            });
+        });
+    };
+
+    // Initialize Lightboxes
+    setupCollectionLightbox();
+    setupGalleryLightbox();
 
     lightboxClose.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => {
-        // Close if click on background area outside image/caption/buttons
         if (e.target === lightbox || e.target.classList.contains('lightbox-image-box')) {
             closeLightbox();
         }
@@ -311,12 +355,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 nextImage();
             } else if (e.key === 'ArrowLeft') {
                 prevImage();
-            }
-        }
-        
-        if (collectionModal.classList.contains('active')) {
-            if (e.key === 'Escape') {
-                closeCollectionModal();
             }
         }
     });
