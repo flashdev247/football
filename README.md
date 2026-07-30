@@ -1,54 +1,56 @@
-# ⚽ Football Portfolio — Trang Giới Thiệu Cá Nhân Bóng Đá
+# Football Portfolio — Bộ Sưu Tập Kỷ Vật Bóng Đá
 
 ## Giới Thiệu
 
-Football Portfolio là website giới thiệu cá nhân dành cho cầu thủ bóng đá hoặc đội bóng, được thiết kế với giao diện năng động và chuyên nghiệp. Dự án trình bày thành tích, thông tin cá nhân, hành trình sự nghiệp và các kỹ năng nổi bật thông qua một trang web tĩnh hiện đại — phù hợp để gửi cho các câu lạc bộ tuyển dụng hoặc chia sẻ trên mạng xã hội.
+**Football Portfolio** là website cá nhân trưng bày bộ sưu tập kỷ vật bóng đá của Dương (Rayan) — một collector sinh năm 2007 tại Hà Nội, người hâm mộ cuồng nhiệt FC Barcelona. Trang web kể lại hành trình từ khi yêu bóng đá đến khi sở hữu những chữ ký quý giá từ các huyền thoại như Rivaldo và Ronaldinho, cùng bộ sưu tập áo đấu, ảnh lưu niệm.
 
-## Tính Năng Chính
+---
 
-### 👤 Dành Cho Người Xem
+## Nội Dung Trang Web
 
-- 🏠 **Trang chủ ấn tượng**: Giới thiệu nhanh về cầu thủ với hình ảnh và tagline nổi bật
-- 👤 **Hồ sơ cá nhân**: Thông tin chi tiết về tuổi, vị trí thi đấu, chiều cao, cân nặng
-- 🏆 **Thành tích**: Danh sách các giải đấu, danh hiệu và cột mốc sự nghiệp
-- ⚽ **Thống kê**: Số bàn thắng, kiến tạo, số trận và các chỉ số thi đấu nổi bật
-- 📸 **Thư viện ảnh**: Bộ sưu tập hình ảnh thi đấu và hoạt động ngoại khóa
-- 🎯 **Kỹ năng**: Biểu đồ trực quan về các kỹ năng như tốc độ, kỹ thuật, thể lực
-- 📞 **Liên hệ**: Thông tin liên lạc để câu lạc bộ hoặc nhà tuyển dụng kết nối
+| Mục | Nội dung |
+|-----|----------|
+| Giới thiệu (Hero) | Tên, tagline, CTA xem bộ sưu tập |
+| Hành trình | Timeline từ 2015 đến nay: yêu bóng đá → gặp gỡ và lấy chữ ký huyền thoại tại Hà Nội |
+| Đam mê | FC Barcelona & triết lý Tiki-Taka, thần tượng Neymar & Ronaldinho, La Liga & Champions League |
+| Bộ sưu tập | Grid lọc theo tab: Tất cả / Áo đấu / Chữ ký — dữ liệu load động từ JSON |
+| Thư viện ảnh | Gallery ảnh thực tế có lightbox (prev/next) |
+| Liên hệ | Email, Facebook, Instagram — không có form, chỉ link mạng xã hội |
+
+---
+
+## Tính Năng Kỹ Thuật
+
+- Bộ lọc bộ sưu tập theo danh mục (Áo đấu / Chữ ký)
+- Gallery lightbox với điều hướng ảnh prev/next
+- Hiệu ứng scroll-reveal và sticky navigation
+- Menu hamburger cho mobile
+- Nút cuộn lên đầu trang
+- Google Analytics 4
+
+---
 
 ## Công Nghệ Sử Dụng
 
 | Thành phần | Công nghệ |
-|---|---|
-| Frontend | HTML5, CSS3, JavaScript |
-| Phong cách | CSS thuần / CSS Framework |
+|------------|-----------|
+| Giao diện | HTML5, CSS3 thuần, JavaScript |
 | Hosting | GitHub Pages |
-| Loại | Website tĩnh (Static) |
+| Analytics | Google Analytics 4 |
 
-## Hướng Dẫn Cài Đặt
+---
 
-### Xem Trực Tiếp
-Truy cập website qua GitHub Pages (nếu đã deploy):
+## Hướng Dẫn Xem
+
+```bash
+# Xem local
+git clone https://github.com/Flash-Dev-Team/football-portfolio.git
+cd football-portfolio
+# Mở index.html trong trình duyệt
 ```
-https://flash-dev-team.github.io/football-portfolio/
-```
 
-### Chạy Local
-
-1. **Clone dự án**
-   ```bash
-   git clone https://github.com/Flash-Dev-Team/football-portfolio.git
-   cd football-portfolio
-   ```
-
-2. **Mở file `index.html`** trong trình duyệt hoặc dùng Live Server (VS Code extension)
-
-### Tùy Chỉnh Nội Dung
-- Chỉnh sửa thông tin cá nhân trong file `index.html`
-- Thay thế hình ảnh trong thư mục `assets/` hoặc `images/`
-- Điều chỉnh màu sắc và phong cách trong file CSS
+---
 
 ## Liên Hệ
 
-Dự án được phát triển bởi **Flash Dev Team**.  
-Mọi thắc mắc xin liên hệ qua [GitHub Issues](https://github.com/Flash-Dev-Team/football-portfolio/issues).
+Dự án phát triển bởi **Flash Dev Team** — [GitHub](https://github.com/Flash-Dev-Team)
